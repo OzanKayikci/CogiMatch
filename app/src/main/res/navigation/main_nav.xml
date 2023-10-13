@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/splashScreenFragment">
+
+
+    <fragment
+        android:id="@+id/gameBoardFragment"
+        android:name="com.laivinieks.cogimatch.ui.fragments.GameBoardFragment"
+        android:label="fragment_game_board"
+        tools:layout="@layout/fragment_game_board" />
+    <fragment
+        android:id="@+id/mainMenuFragment"
+        android:name="com.laivinieks.cogimatch.ui.fragments.MainMenuFragment"
+        android:label="MainMenuFragment" >
+        <action
+            android:id="@+id/action_mainMenuFragment_to_gameBoardFragment"
+            app:destination="@id/gameBoardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.laivinieks.cogimatch.ui.fragments.SplashScreenFragment"
+        android:label="SplashScreenFragment" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+    </fragment>
+</navigation>
