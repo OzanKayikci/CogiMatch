@@ -51,17 +51,43 @@ class GameBoardFragment : Fragment() {
         val view = binding.root
 
         setStage(currentStage)
+        buttonHandle()
         getObserves()
 
 
         return view
     }
 
+
     override fun onStart() {
         super.onStart()
+        startTimer()
+    }
+
+    private fun startTimer() {
         timeStarted = System.currentTimeMillis()
         cardViewModel.isRunning.postValue(true)
     }
+
+    private fun stopTimer() {
+        totalTime -= lapTime
+        cardViewModel.isRunning.postValue(false)
+    }
+
+    private fun buttonHandle() {
+        binding.btnMenu.setOnClickListener {
+            stopTimer()
+
+            val dialogFragment = PauseGameDialogFragment()
+
+            dialogFragment.setOnDialogCanceledCallback {
+                Timber.d("run canceled")
+                startTimer()
+            }
+            dialogFragment.show(childFragmentManager, PauseGameDialogFragment.TAG)
+        }
+    }
+
 
     private fun initRecycleView(stage: Stage, sizeMultiplayer: Float) {
         val gridLayoutManager = GridLayoutManager(
@@ -93,10 +119,17 @@ class GameBoardFragment : Fragment() {
         }
 
         cardViewModel.isRunning.observe(viewLifecycleOwner) {
-            updateTimer(from = "observer")
+            Timber.d("$it")
+            updateTimer()
         }
 
         cardViewModel.timeRunInMillis.observe(viewLifecycleOwner) {
+            Timber.d("$it")
+            if (it < 1) {
+                totalTime = 0
+                binding.tvTimer.text = "End Of Time"
+                return@observe
+            }
             val formattedTime = CardUtility.getFormattedStopWatchTime(it, true)
             binding.tvTimer.text = formattedTime
         }
@@ -123,7 +156,7 @@ class GameBoardFragment : Fragment() {
 
                 return@observe
             }
-            Log.d("Not Finished", it.toString())
+            Timber.d("Not Finished")
 
         }
 
@@ -146,17 +179,13 @@ class GameBoardFragment : Fragment() {
     }
 
 
-    private fun updateTimer(time: Long = 0, from: String) {
+    private fun updateTimer() {
 
-
-        Timber.tag(from)
-            .d(" :$residualTime - $totalTime  - $lapTime - ${cardViewModel.isRunning.value}")
 
         CoroutineScope(Dispatchers.Main).launch {
 
             while (cardViewModel.isRunning.value!! && totalTime > 0) {
-                Timber.tag(from)
-                    .d(" :$residualTime - $totalTime  - $lapTime - ${cardViewModel.isRunning.value}")
+
                 lapTime = System.currentTimeMillis() - timeStarted
                 cardViewModel.timeRunInMillis.postValue(totalTime - lapTime)
                 delay(Constants.TIMER_UPDATE_INTERVAL)
@@ -233,8 +262,9 @@ class GameBoardFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        cardViewModel.isRunning.postValue(false)
+        stopTimer()
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
