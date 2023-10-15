@@ -143,9 +143,12 @@ object CardUtility {
         milliseconds -= TimeUnit.SECONDS.toMillis(seconds)
         milliseconds /= 10
         val timeStringWithMillis =
-            timeString + ":${if (milliseconds < 10) "0" else ""}$milliseconds"
+            timeString + ":${if (milliseconds < 10) "0" else ""}$milliseconds "
         return timeStringWithMillis
     }
 
+    fun scoreCalculator(turns: Int, matches: Int, stage: Int): Int {
+        return (1000 * ((matches * matches).toFloat() * stage / turns)).toInt()
+    }
 
 }

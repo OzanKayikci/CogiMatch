@@ -10,14 +10,33 @@
         android:id="@+id/gameBoardFragment"
         android:name="com.laivinieks.cogimatch.ui.fragments.GameBoardFragment"
         android:label="fragment_game_board"
-        tools:layout="@layout/fragment_game_board" />
+        tools:layout="@layout/fragment_game_board" >
+        <action
+            android:id="@+id/action_gameBoardFragment_to_gameOverFragment"
+            app:destination="@id/gameOverFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_gameBoardFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/mainMenuFragment"
         android:name="com.laivinieks.cogimatch.ui.fragments.MainMenuFragment"
         android:label="MainMenuFragment" >
         <action
             android:id="@+id/action_mainMenuFragment_to_gameBoardFragment"
-            app:destination="@id/gameBoardFragment" />
+            app:destination="@id/gameBoardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -26,5 +45,17 @@
         <action
             android:id="@+id/action_splashScreenFragment_to_mainMenuFragment"
             app:destination="@id/mainMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameOverFragment"
+        android:name="com.laivinieks.cogimatch.ui.fragments.GameOverFragment"
+        android:label="GameOverFragment" >
+        <action
+            android:id="@+id/action_gameOverFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 </navigation>

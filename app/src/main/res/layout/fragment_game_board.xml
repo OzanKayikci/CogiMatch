@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_single_tree"
-
+    android:background="@drawable/background_10"
     android:padding="10dp"
-
     tools:context=".ui.fragments.GameBoardFragment">
 
     <androidx.cardview.widget.CardView
@@ -15,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:backgroundTint="#32000000"
+        android:backgroundTint="#33403E3E"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +57,21 @@
 
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/tvStrike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/knewave"
+        android:text="x2 "
+        android:textColor="@color/pink"
+        android:textSize="30sp"
+        android:translationZ="2dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/cardView2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/cardView2"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
     <androidx.recyclerview.widget.RecyclerView
 
@@ -83,23 +96,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:gravity="center"
+            android:orientation="horizontal"
             android:paddingHorizontal="16dp">
+
             <com.google.android.material.textview.MaterialTextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/transparent"
                 android:fontFamily="@font/knewave"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp"
                 android:gravity="center"
-                android:text="Turns: "/>
+                android:text="Turns: "
+                android:textAlignment="center"
+                android:textColor="@color/blue"
+                android:textSize="20sp" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/totalTurn"
                 android:layout_width="wrap_content"
@@ -107,36 +123,38 @@
                 android:backgroundTint="@android:color/transparent"
                 android:fontFamily="@font/knewave"
 
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:text="0"/>
+                android:text="0"
+                android:textColor="@color/blue"
+                android:textSize="20sp" />
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
             <com.google.android.material.textview.MaterialTextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/transparent"
                 android:fontFamily="@font/knewave"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp"
                 android:gravity="center"
-                android:text="Matches: "/>
+                android:text="Matches: "
+                android:textAlignment="center"
+                android:textColor="@color/pink"
+                android:textSize="20sp" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/totalMatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/transparent"
                 android:fontFamily="@font/knewave"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp"
                 android:gravity="center"
-                android:text="0"/>
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="@color/pink"
+                android:textSize="20sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

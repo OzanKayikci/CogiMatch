@@ -18,6 +18,9 @@ object Constants {
     const val rewardTime = 3000L
     const val TIMER_UPDATE_INTERVAL = 80L
 
+    const val SHARED_PREFERENCES_NAME = "SharedPref"
+    const val ARCADE_SCORE = "ARCADE_SCORE"
+
     val cards = listOf(
         R.drawable.cute_archer_mimic_octopus,
         R.drawable.cute_black_mage_leaf_tailed_gecko,

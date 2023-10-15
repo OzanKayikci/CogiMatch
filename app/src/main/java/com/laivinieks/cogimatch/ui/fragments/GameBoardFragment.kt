@@ -1,6 +1,8 @@
 package com.laivinieks.cogimatch.ui.fragments
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,10 +11,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.laivinieks.cogimatch.R
 import com.laivinieks.cogimatch.adapter.CardsAdapter
 import com.laivinieks.cogimatch.data.entity.Card
 import com.laivinieks.cogimatch.databinding.FragmentGameBoardBinding
@@ -27,20 +35,29 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class GameBoardFragment : Fragment() {
     private var _binding: FragmentGameBoardBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
+
+
     private lateinit var cardsAdapter: CardsAdapter
     private lateinit var cardsList: MutableList<Card>
     private var currentStage: Int = 0
+    private var stageForScore: Int = 0
     private var totalTime = 0L
     private var timeStarted = 0L
     private var lapTime = 0L
     private var residualTime = 0L
     private var openedCard: Card? = null
     private var strike: Int = 0
+    private var matchesCount: Int = 0
+    private var turnsCount: Int = 0
     private val cardViewModel: CardViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,15 +93,7 @@ class GameBoardFragment : Fragment() {
 
     private fun buttonHandle() {
         binding.btnMenu.setOnClickListener {
-            stopTimer()
-
-            val dialogFragment = PauseGameDialogFragment()
-
-            dialogFragment.setOnDialogCanceledCallback {
-                Timber.d("run canceled")
-                startTimer()
-            }
-            dialogFragment.show(childFragmentManager, PauseGameDialogFragment.TAG)
+            initPauseGameDialog()
         }
     }
 
@@ -108,8 +117,12 @@ class GameBoardFragment : Fragment() {
     private fun getObserves() {
         cardViewModel.currentStage.observe(viewLifecycleOwner) {
             currentStage = it.ordinal
-            totalTime += it.totalTime
+            if (Stage.values().last() != it) {
+                totalTime += it.totalTime
+
+            }
             cardsList = GenerateCardLists.generateRandomList(it.totalCard / 2)
+            stageForScore = currentStage
 
             Handler(Looper.getMainLooper()).postDelayed({
                 initRecycleView(it, cardViewModel.cardSizeMultiplayer.value!!)
@@ -125,9 +138,10 @@ class GameBoardFragment : Fragment() {
 
         cardViewModel.timeRunInMillis.observe(viewLifecycleOwner) {
             Timber.d("$it")
-            if (it < 1) {
+            if (it < -1) {
                 totalTime = 0
                 binding.tvTimer.text = "End Of Time"
+                navigateToGameOverScreen()
                 return@observe
             }
             val formattedTime = CardUtility.getFormattedStopWatchTime(it, true)
@@ -161,8 +175,36 @@ class GameBoardFragment : Fragment() {
         }
 
         cardViewModel.turn.observe(viewLifecycleOwner) {
-            binding.totalTurn.text = it.toString()
-            binding.totalMatch.text = cardViewModel.matchingCount.value!!.toString()
+            matchesCount = cardViewModel.matchingCount.value!!
+            turnsCount = it
+
+            binding.totalTurn.text = "$it "
+            binding.totalMatch.text = "$matchesCount "
+
+
+
+            binding.tvStrike.apply {
+                isVisible = strike > 0
+                text = "x$strike "
+                when (strike) {
+                    in 1..2 -> {
+                        val white = getColor(requireContext(), R.color.white)
+                        setTextColor(white)
+                    }
+
+                    in 3..4 -> {
+                        val blue = getColor(requireContext(), R.color.blue)
+                        setTextColor(blue)
+                    }
+
+                    else -> {
+
+                        val pink = getColor(requireContext(), R.color.pink)
+                        setTextColor(pink)
+
+                    }
+                }
+            }
         }
 
     }
@@ -250,6 +292,7 @@ class GameBoardFragment : Fragment() {
                 residualTime = Constants.rewardTime * strike
                 totalTime += residualTime
                 strike++
+                stageForScore = currentStage + 1
                 cardViewModel.updateCounts(true)
             }, Constants.DELAY)
 
@@ -259,15 +302,55 @@ class GameBoardFragment : Fragment() {
         }
     }
 
+    private fun initPauseGameDialog() {
+        stopTimer()
+        val dialogFragment = PauseGameDialogFragment()
+        dialogFragment.setOnDialogCanceledCallback {
+            Timber.d("run canceled")
+            startTimer()
+        }
+        dialogFragment.setOnPositiveButtonCallback {
+            findNavController().navigate(R.id.action_gameBoardFragment_to_mainMenuFragment)
+        }
+        dialogFragment.show(childFragmentManager, PauseGameDialogFragment.TAG)
+    }
+
+    private fun navigateToGameOverScreen() {
+        val bundle = bundleOf("values" to intArrayOf(turnsCount, matchesCount, stageForScore))
+        findNavController().navigate(R.id.action_gameBoardFragment_to_gameOverFragment, bundle)
+
+
+    }
 
     override fun onStop() {
         super.onStop()
         stopTimer()
     }
 
+    private fun writeDataToSharedPref() {
+        val score = CardUtility.scoreCalculator(turnsCount, matchesCount, stageForScore)
+        val oldScore = sharedPref.getInt(Constants.ARCADE_SCORE, 0)
+        val currentScore = if (oldScore > score) oldScore else score
+        sharedPref.edit().putInt(Constants.ARCADE_SCORE, currentScore).apply()
 
-    override fun onDestroy() {
-        super.onDestroy()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                initPauseGameDialog()
+            }
+
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this, callback
+        )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        writeDataToSharedPref()
         _binding = null
     }
 }
