@@ -21,6 +21,10 @@ object Constants {
     const val SHARED_PREFERENCES_NAME = "SharedPref"
     const val ARCADE_SCORE = "ARCADE_SCORE"
 
+    const val DEF_VOLUME = 0.4f
+    const val MUSIC_VOLUME = "MUSIC_VOLUME"
+    const val SFX_VOLUME = "SFX_VOLUME"
+
     val cards = listOf(
         R.drawable.cute_archer_mimic_octopus,
         R.drawable.cute_black_mage_leaf_tailed_gecko,

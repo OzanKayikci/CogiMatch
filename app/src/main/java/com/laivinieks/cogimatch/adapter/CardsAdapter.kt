@@ -15,19 +15,21 @@ import com.laivinieks.cogimatch.R
 import com.laivinieks.cogimatch.data.entity.Card
 import com.laivinieks.cogimatch.utilities.CardUtility
 import com.laivinieks.cogimatch.utilities.Constants
+import com.laivinieks.cogimatch.utilities.SoundEffect
+import com.laivinieks.cogimatch.utilities.SoundManager
 import com.laivinieks.cogimatch.viewmodel.CardViewModel
 
 class CardsAdapter(
     private val context: Context,
     private val cardViewModel: CardViewModel,
     cardsList: MutableList<Card>,
-    private  val cardSizeMultiplayer:Float
+    private val soundManager: SoundManager,
+    private val cardSizeMultiplayer: Float
 
 ) :
     RecyclerView.Adapter<CardsAdapter.MyCustomHolder>() {
 
     private val cards = cardsList.toMutableList()
-
 
     inner class MyCustomHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -80,6 +82,7 @@ class CardsAdapter(
 
 
         holder.itemView.setOnClickListener {
+
             CardUtility.flipAnimation(
                 holder.cardView,
                 holder.imageView,
@@ -88,9 +91,12 @@ class CardsAdapter(
                 true
 
             ).also {
+                soundManager.playSound(SoundEffect.CARDFLIP.index)
                 cardViewModel.markAsOpened(currCard)
                 holder.itemView.isClickable = false
             }
+
+
         }
     }
 

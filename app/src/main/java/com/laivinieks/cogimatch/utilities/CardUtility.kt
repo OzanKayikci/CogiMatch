@@ -151,4 +151,5 @@ object CardUtility {
         return (1000 * ((matches * matches).toFloat() * stage / turns)).toInt()
     }
 
+
 }

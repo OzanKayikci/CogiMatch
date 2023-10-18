@@ -27,6 +27,8 @@ import com.laivinieks.cogimatch.databinding.FragmentGameBoardBinding
 import com.laivinieks.cogimatch.utilities.CardUtility
 import com.laivinieks.cogimatch.utilities.Constants
 import com.laivinieks.cogimatch.utilities.GenerateCardLists
+import com.laivinieks.cogimatch.utilities.SoundEffect
+import com.laivinieks.cogimatch.utilities.SoundManager
 import com.laivinieks.cogimatch.utilities.Stage
 import com.laivinieks.cogimatch.viewmodel.CardViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +46,7 @@ class GameBoardFragment : Fragment() {
 
     @Inject
     lateinit var sharedPref: SharedPreferences
-
+    private lateinit var soundManager: SoundManager
 
     private lateinit var cardsAdapter: CardsAdapter
     private lateinit var cardsList: MutableList<Card>
@@ -58,6 +60,8 @@ class GameBoardFragment : Fragment() {
     private var strike: Int = 0
     private var matchesCount: Int = 0
     private var turnsCount: Int = 0
+    private var isClockTicking: Boolean = false
+
     private val cardViewModel: CardViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +70,14 @@ class GameBoardFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentGameBoardBinding.inflate(inflater, container, false)
         val view = binding.root
-
+        soundManager = SoundManager(
+            requireContext(),
+            sharedPref,
+            R.raw.card_flick_corner,
+            R.raw.game_card_drop,
+            R.raw.suction_pop,
+            R.raw.watch_clock_ticking_shortened
+        )
         setStage(currentStage)
         buttonHandle()
         getObserves()
@@ -93,6 +104,7 @@ class GameBoardFragment : Fragment() {
 
     private fun buttonHandle() {
         binding.btnMenu.setOnClickListener {
+
             initPauseGameDialog()
         }
     }
@@ -109,7 +121,7 @@ class GameBoardFragment : Fragment() {
         binding.cardsRecycleView.layoutManager = gridLayoutManager
         binding.cardsRecycleView.setHasFixedSize(true)
         cardsAdapter =
-            CardsAdapter(requireContext(), cardViewModel, cardsList, sizeMultiplayer)
+            CardsAdapter(requireContext(), cardViewModel, cardsList, soundManager, sizeMultiplayer)
         binding.cardsRecycleView.adapter = cardsAdapter
     }
 
@@ -137,13 +149,22 @@ class GameBoardFragment : Fragment() {
         }
 
         cardViewModel.timeRunInMillis.observe(viewLifecycleOwner) {
-            Timber.d("$it")
             if (it < -1) {
                 totalTime = 0
                 binding.tvTimer.text = "End Of Time"
                 navigateToGameOverScreen()
                 return@observe
             }
+
+            if (it in 5800..6000 && !isClockTicking) {
+                soundManager.playSound(SoundEffect.CLOCKTICKING.index)
+                isClockTicking = true
+            } else if (it < 500 || it > 6100) {
+                soundManager.stopSound()
+                isClockTicking = false
+            }
+
+
             val formattedTime = CardUtility.getFormattedStopWatchTime(it, true)
             binding.tvTimer.text = formattedTime
         }
@@ -240,17 +261,17 @@ class GameBoardFragment : Fragment() {
 
     private fun hideCards(firstCard: Int, secondCard: Int) {
 
-
         updateCardList(firstCard, secondCard)
+
         CardUtility.explodeAnimation(
             binding.cardsRecycleView.findViewHolderForLayoutPosition(
                 firstCard
-            )!!.itemView as CardView
+            )?.itemView as CardView
         )
         CardUtility.explodeAnimation(
             binding.cardsRecycleView.findViewHolderForLayoutPosition(
                 secondCard
-            )!!.itemView as CardView
+            )?.itemView as CardView
         )
     }
 
@@ -268,11 +289,12 @@ class GameBoardFragment : Fragment() {
             val selectedCardId = selectedCard!!.id
             if (!isMatched) {
                 Handler(Looper.getMainLooper()).postDelayed({
+                    soundManager.playSound(SoundEffect.CLOSECARDS.index)
+
                     cardsAdapter.closeCard(
                         binding.cardsRecycleView,
                         openedCardId,
-
-                        )
+                    )
                     cardsAdapter.closeCard(
                         binding.cardsRecycleView,
                         selectedCardId,
@@ -286,11 +308,16 @@ class GameBoardFragment : Fragment() {
                 return@compareCards
             }
 
+            // increase total time and outside of delay operation because delay is 800ms and if user match cards under 800ms these 2 operations didn't work and player will lost.
+            totalTime += residualTime
+
+            //-----------
             Handler(Looper.getMainLooper()).postDelayed({
-                hideCards(selectedCardId, openedCardId)
-                // updateTimer(strike * Constants.rewardTime, from = "from strike")
                 residualTime = Constants.rewardTime * strike
-                totalTime += residualTime
+                soundManager.playSound(SoundEffect.MATCHEDSOUND.index)
+                hideCards(selectedCardId, openedCardId)
+
+
                 strike++
                 stageForScore = currentStage + 1
                 cardViewModel.updateCounts(true)

@@ -2,18 +2,20 @@
 <resources>
 
     <style name="PauseGameDialogView" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="colorSurface">@color/darkBackground</item>
         <item name="materialAlertDialogTitleTextStyle">@style/DialogTitleStyle</item>
         <item name="materialAlertDialogBodyTextStyle">@style/BodyTextStyle</item>
-
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
         <item name="android:textColor">@color/blue</item>
         <item name="android:fontFamily">@font/knewave</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:layout_gravity">start</item>
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
@@ -23,21 +25,22 @@
 
         <item name="rippleColor">@color/white</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">end</item>
     </style>
 
-    <style name="BodyTextStyle" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+    <style name="BodyTextStyle" parent="MaterialAlertDialog.Material3.Body.Text">
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/knewave</item>
 
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="DialogTitleStyle" parent="MaterialAlertDialog.Material3.Title.Text">
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/knewave</item>
 
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">32sp</item>
+
 
     </style>
 

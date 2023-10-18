@@ -24,4 +24,12 @@ class AppModule {
     @Singleton
     fun provideArcadeScore(sharedPreferences: SharedPreferences) =
         sharedPreferences.getInt(Constants.ARCADE_SCORE, 0)
+
+    @Provides
+    @Singleton
+    fun provideMusicVolume(sharedPreferences: SharedPreferences) =
+        sharedPreferences.getFloat(Constants.MUSIC_VOLUME, Constants.DEF_VOLUME)
+
+    fun provideSfxVolume(sharedPreferences: SharedPreferences) =
+        sharedPreferences.getFloat(Constants.SFX_VOLUME, Constants.DEF_VOLUME)
 }
