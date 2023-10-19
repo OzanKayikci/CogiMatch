@@ -40,6 +40,9 @@ class MainMenuFragment : Fragment() {
         binding.btnArcade.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenuFragment_to_gameBoardFragment)
         }
+        binding.btnSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_mainMenuFragment_to_settingsFragment)
+        }
     }
 
     private fun loadFieldsFromSharedPref() {
@@ -48,7 +51,7 @@ class MainMenuFragment : Fragment() {
         if (score > 0) {
             binding.tvArcadeScore.isVisible = true
         }
-        binding.tvArcadeScore.text = "Score : $score "
+        binding.tvArcadeScore.text = "${getString(R.string.score)}: $score "
     }
 
     override fun onAttach(context: Context) {

@@ -1,6 +1,7 @@
 package com.laivinieks.cogimatch.utilities
 
 import com.laivinieks.cogimatch.R
+import java.util.Locale
 
 
 object Constants {
@@ -24,6 +25,9 @@ object Constants {
     const val DEF_VOLUME = 0.4f
     const val MUSIC_VOLUME = "MUSIC_VOLUME"
     const val SFX_VOLUME = "SFX_VOLUME"
+    const val LANGUAGE = "LANGUAGE"
+
+     var DEFAULT_LANGUAGE = Locale.getDefault().language
 
     val cards = listOf(
         R.drawable.cute_archer_mimic_octopus,

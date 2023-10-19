@@ -24,7 +24,6 @@ class GameOverFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,10 +47,10 @@ class GameOverFragment : Fragment() {
     }
 
     private fun setTexts(turns: Int, matches: Int, score: Int) {
-        binding.tvTurns.text = "Turns : $turns "
-        binding.tvMatches.text = "Matches : $matches "
+        binding.tvTurns.text = "${getString(R.string.turns)} $turns "
+        binding.tvMatches.text = "${getString(R.string.matches)} $matches "
         binding.tvScore.text =
-            "Score : $score "
+            "${getString(R.string.score)} : $score "
     }
 
     private fun buttonHandle() {

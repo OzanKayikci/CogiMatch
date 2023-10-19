@@ -1,5 +1,32 @@
 <resources>
-    <string name="app_name">CogiMatch</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name" translatable="false">CogiMatch</string>
+
+    <!--   Main Menu -->
+    <string name="story">Story</string>
+    <string name="arcade" translatable="false">Arcade</string>
+    <string name="settings">SETTINGS</string>
+    <string name="score">Score</string>
+
+    <!--    Settings    -->
+    <string name="language">Language&#160;</string>
+    <string name="sound">Sound&#160;</string>
+    <string name="music">&#160;Music&#160;</string>
+
+    <string name="system">System</string>
+    <string name="turkish" translatable="false">Türkçe</string>
+    <string name="english" translatable="false">English</string>
+
+    <!--    Arcade Screen  -->
+    <string name="turns">Turns:&#160;</string>
+    <string name="matches">Matches:&#160;</string>
+    <string name="end_time">End Of Time&#160;</string>
+
+    <!--    Pause Dialog    -->
+    <string name="pause">Pause&#160;</string>
+    <string name="do_you_exit">Do you want to exit?&#160;</string>
+    <string name="cancel">Cancel&#160;</string>
+    <string name="exit">Exit</string>
+
+<!--    Game Over-->
+    <string name="main_menu">Main Menu</string>
 </resources>

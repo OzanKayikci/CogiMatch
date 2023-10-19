@@ -59,14 +59,7 @@ class PauseGameDialogFragment : DialogFragment() {
             onPositiveButtonCallback?.invoke()
         }
 
-        settingsViewModel.setVolume(
-            true,
-            sharedPref.getFloat(Constants.MUSIC_VOLUME, Constants.DEF_VOLUME)
-        )
-        settingsViewModel.setVolume(
-            false,
-            sharedPref.getFloat(Constants.SFX_VOLUME, Constants.DEF_VOLUME)
-        )
+
 
         return dialog
     }

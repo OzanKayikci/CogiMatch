@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="story">Hıkaye</string>
+    <string name="settings">Ayarlar</string>
+    <string name="language">Dil&#160;</string>
+    <string name="sound">Ses&#160;</string>
+    <string name="music">&#160;Müzik&#160;</string>
+    <string name="system">Sistem</string>
+    <string name="score">Skor</string>
+    <string name="turns">Çevirme:&#160;</string>
+    <string name="matches">Eslesme:&#160;</string>
+    <string name="end_time">Süre Sonu&#160;</string>
+    <string name="pause">Duraklat&#160;</string>
+    <string name="do_you_exit">Ayrilmak mi istiyorsunuz?&#160;</string>
+    <string name="cancel">Geri Dön&#160;</string>
+    <string name="exit">Ayril&#160;</string>
+    <string name="main_menu">Ana Menu</string>
+</resources>

@@ -15,7 +15,7 @@
             android:buttonTint="@color/pink"
             android:checked="true"
             android:fontFamily="@font/knewave"
-            android:text=" Music "
+            android:text="@string/music"
             android:textColor="@color/white"
             android:textSize="18sp" />
 

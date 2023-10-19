@@ -151,7 +151,7 @@ class GameBoardFragment : Fragment() {
         cardViewModel.timeRunInMillis.observe(viewLifecycleOwner) {
             if (it < -1) {
                 totalTime = 0
-                binding.tvTimer.text = "End Of Time"
+                binding.tvTimer.text = "${getString(R.string.end_time)}"
                 navigateToGameOverScreen()
                 return@observe
             }
