@@ -11,6 +11,7 @@
     <string name="language">Language&#160;</string>
     <string name="sound">Sound&#160;</string>
     <string name="music">&#160;Music&#160;</string>
+    <string name="credits" translatable="false">Credits&#160;</string>
 
     <string name="system">System</string>
     <string name="turkish" translatable="false">Türkçe</string>

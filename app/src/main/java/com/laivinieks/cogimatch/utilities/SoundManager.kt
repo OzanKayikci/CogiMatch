@@ -11,13 +11,15 @@ class SoundManager(
     soundSource1: Int,
     soundSource2: Int,
     soundSource3: Int,
-    soundSource4: Int
+    soundSource4: Int,
+    soundSource5: Int
 ) {
-    private val soundPool: SoundPool = SoundPool.Builder().setMaxStreams(4).build()
+    private val soundPool: SoundPool = SoundPool.Builder().setMaxStreams(5).build()
     private var cardFlip: Int = 0
     private var closeCard: Int = 0
     private var matchedSound: Int = 0
     private var clockTicking: Int = 0
+    private var clockAlarm:Int = 0
     private var soundEffectsArray: Array<Int>
     private var volume = sharedPreferences.getFloat(Constants.SFX_VOLUME, Constants.DEF_VOLUME)
 
@@ -28,7 +30,8 @@ class SoundManager(
         closeCard = soundPool.load(context, soundSource2, 1) // Load the sound from resources.
         matchedSound = soundPool.load(context, soundSource3, 1) // Load the sound from resources.
         clockTicking = soundPool.load(context, soundSource4, 1)
-        soundEffectsArray = arrayOf(cardFlip, closeCard, matchedSound, clockTicking)
+        clockAlarm = soundPool.load(context,soundSource5,1)
+        soundEffectsArray = arrayOf(cardFlip, closeCard, matchedSound, clockTicking,clockAlarm)
     }
 
     fun playSound(index: Int) {

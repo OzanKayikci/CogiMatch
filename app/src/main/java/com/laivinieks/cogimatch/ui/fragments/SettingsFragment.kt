@@ -41,14 +41,22 @@ class SettingsFragment : Fragment() {
         val view = binding.root
         soundSettings = SoundSettings(view, settingsViewModel, sharedPref)
         initRecycleView()
+        buttonHandle()
         return view
+    }
+
+    private fun buttonHandle() {
+        binding.credits.setOnClickListener {
+            val dialogFragment = CreditsDialogFragment()
+            dialogFragment.show(childFragmentManager, CreditsDialogFragment.TAG)
+        }
     }
 
     private fun initRecycleView() {
         val horizontalLM =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvLanguage.layoutManager = horizontalLM
-        val adapter = LanguageAdapter(requireContext(),settingsViewModel,requireActivity())
+        val adapter = LanguageAdapter(requireContext(), settingsViewModel, requireActivity())
         binding.rvLanguage.adapter = adapter
     }
 

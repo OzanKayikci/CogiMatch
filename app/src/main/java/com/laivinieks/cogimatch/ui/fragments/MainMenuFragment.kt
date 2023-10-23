@@ -24,6 +24,9 @@ class MainMenuFragment : Fragment() {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+
+
+    private lateinit var sharedPreferencesListener: SharedPreferences.OnSharedPreferenceChangeListener
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,6 +34,7 @@ class MainMenuFragment : Fragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = FragmentMainMenuBinding.inflate(inflater)
+
         loadFieldsFromSharedPref()
         buttonOperations()
         return binding.root
@@ -47,7 +51,15 @@ class MainMenuFragment : Fragment() {
 
     private fun loadFieldsFromSharedPref() {
 
-        val score = sharedPreferences.getInt(Constants.ARCADE_SCORE, 0)
+        var score = sharedPreferences.getInt(Constants.ARCADE_SCORE, 0)
+
+        sharedPreferencesListener =
+            SharedPreferences.OnSharedPreferenceChangeListener { sharedpref, key ->
+                if (key == Constants.ARCADE_SCORE) {
+                    score = sharedPreferences.getInt(Constants.ARCADE_SCORE, 0)
+                }
+            }
+
         if (score > 0) {
             binding.tvArcadeScore.isVisible = true
         }
@@ -65,6 +77,16 @@ class MainMenuFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(
             this, callback
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferencesListener)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferencesListener)
     }
 
     override fun onDestroy() {

@@ -76,7 +76,8 @@ class GameBoardFragment : Fragment() {
             R.raw.card_flick_corner,
             R.raw.game_card_drop,
             R.raw.suction_pop,
-            R.raw.watch_clock_ticking_shortened
+            R.raw.watch_clock_ticking_shortened,
+            R.raw.alarm_clock
         )
         setStage(currentStage)
         buttonHandle()
@@ -162,6 +163,9 @@ class GameBoardFragment : Fragment() {
             } else if (it < 500 || it > 6100) {
                 soundManager.stopSound()
                 isClockTicking = false
+                if (it < 400) {
+                    soundManager.playSound(SoundEffect.CLOCKALARM.index)
+                }
             }
 
 
