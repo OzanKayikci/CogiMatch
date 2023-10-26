@@ -9,6 +9,7 @@
     <color name="blue">#5db2ef</color>
     <color name="pink">#d05886</color>
     <color name="darkBackground">#5d5f5a</color>
+    <color name="darkBackground2">#454749</color>
     <color name="inactive_color">#8F9193</color>
     <color name="transparent">#00000000</color>
 </resources>

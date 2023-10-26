@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/knewave"
         android:text="Matches : 0 "
-        android:textColor="#CBFFFFFF"
+        android:textColor="#BEFFFFFF"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="@+id/tvTurns"
         app:layout_constraintStart_toStartOf="@+id/tvTurns"

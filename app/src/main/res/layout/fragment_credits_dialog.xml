@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
 
-        android:backgroundTint="@color/material_dynamic_neutral30"
+        android:backgroundTint="@color/darkBackground"
         app:cardCornerRadius="20dp">
 
         <LinearLayout
