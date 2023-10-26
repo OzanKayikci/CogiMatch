@@ -15,6 +15,9 @@ Google Play Store: [Download](https://play.google.com/store/apps/details?id=com.
 https://github.com/OzanKayikci/CogiMatch/assets/48061680/2b26a1de-85b9-4174-af48-86020439226b
 
 
-
-
+## Libraries and Tools : 
+- Dagger-Hilt
+- Shared Pref
+- Lifecycle
+- Navigation
 
