@@ -25,11 +25,12 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/knewave"
         android:text="@string/score"
-        android:visibility="invisible"
         android:textColor="#9CFFFFFF"
         android:textSize="20sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="200dp"
@@ -41,21 +42,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.75">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/btnStory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="2"
-
-            android:background="@android:color/transparent"
+            android:background="@color/transparent"
             android:elevation="6dp"
             android:enabled="false"
             android:fallbackLineSpacing="true"
             android:fontFamily="@font/knewave"
             android:gravity="center"
             android:text="@string/story"
-            android:textColor="@color/material_dynamic_neutral60"
+            android:textAllCaps="true"
+            android:textColor="@color/inactive_color"
             android:textSize="32dp"
             android:textStyle="bold" />
 
@@ -64,40 +65,41 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/btnArcade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="2"
-            android:background="@android:color/transparent"
+            android:background="@color/transparent"
             android:elevation="6dp"
             android:fallbackLineSpacing="true"
             android:fontFamily="@font/knewave"
             android:gravity="center"
             android:text="@string/arcade"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="32dp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/btnSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="2"
-            android:background="@android:color/transparent"
+            android:background="@color/transparent"
             android:elevation="6dp"
             android:fallbackLineSpacing="true"
-
             android:fontFamily="@font/knewave"
             android:gravity="center"
             android:text="@string/settings"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="32dp"
             android:textStyle="bold" />

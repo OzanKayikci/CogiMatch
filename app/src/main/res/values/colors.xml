@@ -5,8 +5,10 @@
 
     <color name="purple">#464FF8</color>
     <color name="dark_1">#384358</color>
-    
+
     <color name="blue">#5db2ef</color>
     <color name="pink">#d05886</color>
     <color name="darkBackground">#5d5f5a</color>
+    <color name="inactive_color">#8F9193</color>
+    <color name="transparent">#00000000</color>
 </resources>
