@@ -5,14 +5,18 @@ Each level increases in difficulty and introduces new features. Don't forget to 
 
 Google Play Store: [Download](https://play.google.com/store/apps/details?id=com.laivinieks.cogimatch)
 
-| Main Menu                       | Arcade Mode Stage 1                    | Arcade Mode Stage 2                   |Pause Menu          |
-| ----------------------------------- | ----------------------------------- |----------------------------------- |---------------------- |
-|![Screenshot_20231023_181051_CogiMatch](https://github.com/OzanKayikci/CogiMatch/assets/48061680/55e3e64f-6a63-4f09-ae58-207b0da8a275)|![Screenshot_20231023_181055_CogiMatch](https://github.com/OzanKayikci/CogiMatch/assets/48061680/53c181af-1ad8-45e2-946a-4224d00b8e27) | ![Screenshot_20231023_181108_CogiMatch](https://github.com/OzanKayikci/CogiMatch/assets/48061680/1959cee5-f03d-431f-8040-9d4b83f7ed4f) |![Screenshot_20231023_181124_CogiMatch](https://github.com/OzanKayikci/CogiMatch/assets/48061680/518d4a77-4e8d-4683-95dc-fc201d11377f) |
- 
+| Main Menu                       | Arcade Mode Stage 1                    | Arcade Mode Stage 2                   |Pause Menu          | Game Over |
+| ----------------------------------- | ----------------------------------- |----------------------------------- |---------------------- | ---------|
+| ![Screenshot_20231023_181051_CogiMatch](https://github.com/OzanKayikci/CogiMatch/assets/48061680/f680373a-7b46-43af-9f06-4cebe5fc7226) |![Screenshot_20231023_181055_CogiMatch](https://github.com/OzanKayikci/CogiMatch/assets/48061680/39d7ed2e-6fa1-491a-ab6d-4f9519623f47) | ![Screenshot_20231023_181108_CogiMatch](https://github.com/OzanKayikci/CogiMatch/assets/48061680/085d2121-08e6-423c-97c3-0880236b761b) | ![Screenshot_20231023_181124_CogiMatch](https://github.com/OzanKayikci/CogiMatch/assets/48061680/e9633b4f-0b58-4c31-8333-7713dd897503) | ![Screenshot_20231023_181133_CogiMatch](https://github.com/OzanKayikci/CogiMatch/assets/48061680/eccd42e1-b84a-44f7-b413-1fb1843a15ad) |
+
+
+
 
 ## Game Video:
 
-https://github.com/OzanKayikci/CogiMatch/assets/48061680/2b26a1de-85b9-4174-af48-86020439226b
+
+https://github.com/OzanKayikci/CogiMatch/assets/48061680/797ba9ce-cd67-4573-9b36-15d74f2572f8
+
 
 
 ## Libraries and Tools : 
